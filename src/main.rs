@@ -331,7 +331,7 @@ impl Window {
                     }
                 }
             };
-            self.command_list().ResourceBarrier(1, &barrier);
+            self.command_list.as_ref().unwrap().ResourceBarrier(1, &barrier);
 
             self.command_list.as_ref().unwrap().Close().ok()?;
 
