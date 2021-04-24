@@ -301,12 +301,12 @@ impl Window {
                 Type: D3D12_RESOURCE_BARRIER_TYPE::D3D12_RESOURCE_BARRIER_TYPE_TRANSITION,
                 Flags: D3D12_RESOURCE_BARRIER_FLAGS::D3D12_RESOURCE_BARRIER_FLAG_NONE,
                 Anonymous: D3D12_RESOURCE_BARRIER_0 {
-                    Transition: D3D12_RESOURCE_TRANSITION_BARRIER_abi {
-                        pResource: self.render_targets[self.frame_index as usize].as_mut().unwrap() as *mut _ as _,
+                    Transition: D3D12_RESOURCE_TRANSITION_BARRIER {
+                        pResource: self.render_targets[self.frame_index as usize].clone(),
                         StateBefore: D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_PRESENT,
                         StateAfter: D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_RENDER_TARGET,
                         Subresource: D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES,
-                    },
+                    }.abi(),
                 },
             };
             self.command_list.as_ref().unwrap().ResourceBarrier(1, &barrier);
@@ -323,12 +323,12 @@ impl Window {
                 Type: D3D12_RESOURCE_BARRIER_TYPE::D3D12_RESOURCE_BARRIER_TYPE_TRANSITION,
                 Flags: D3D12_RESOURCE_BARRIER_FLAGS::D3D12_RESOURCE_BARRIER_FLAG_NONE,
                 Anonymous: D3D12_RESOURCE_BARRIER_0 {
-                    Transition: D3D12_RESOURCE_TRANSITION_BARRIER_abi {
-                        pResource: self.render_targets[self.frame_index as usize].as_mut().unwrap() as *mut _ as _,
+                    Transition: D3D12_RESOURCE_TRANSITION_BARRIER {
+                        pResource: self.render_targets[self.frame_index as usize].clone(),
                         StateBefore: D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_RENDER_TARGET,
                         StateAfter: D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_PRESENT,
                         Subresource: D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES
-                    }
+                    }.abi()
                 }
             };
             self.command_list.as_ref().unwrap().ResourceBarrier(1, &barrier);
